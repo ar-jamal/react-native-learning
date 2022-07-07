@@ -17,10 +17,43 @@ import allStyles from './components/allStyles';
 import ButtonR from './components/ButtonR';
 import { launchCameraAsync } from 'expo-image-picker';
 import ImagePickerHandler from './screens/Camera02';
+import Map from './screens/map';
+import MapView from 'react-native-maps';
+import { ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 
 
-function MainPage({ width, navigation }) {
+function MainPage({ width, navigation, route }) {
+
+  // const mapPickedLocation = route.params && {
+  // lat: route.params.pickedLat, 
+  // lng: route.params.pickedLng,
   const [text, setText] = useState('')
+  const [latLng, setLatLng] = useState({
+    lat: 0,
+    lng: 0
+  })
+
+  const { pickedLat, pickedLng } = route.params || {};
+
+  useEffect(() => {
+    setLatLng({
+      lat: pickedLat,
+      lng: pickedLng
+    })
+  }, [pickedLat, pickedLng])
+  // const lat = pickedLat;
+  //   const lng = pickedLng
+  // }
+
+  // };
+
+  const region = {
+    latitude: latLng.lat,
+    longitude: latLng.lng,
+    latitudeDelta: 0.072,
+    longitudeDelta: 0.092
+  }
+
 
   const ImagePickerHandler = ({ }) => {
     const [pickedImage, setPickedImage] = useState("")
@@ -32,8 +65,8 @@ function MainPage({ width, navigation }) {
       });
       // console.log(image)
       setPickedImage(image.uri);
-
     }, [])
+
     useEffect(() => {
       loadCamera()
 
@@ -62,7 +95,7 @@ function MainPage({ width, navigation }) {
         <ButtonR
           title='+'
           onPress={() => {
-            navigation.navigate('setTask')
+            navigation.navigate('Set_Task')
             // navigation.navigate('Camera_Page')
           }}
         // navigation={navigation}
@@ -78,31 +111,37 @@ function MainPage({ width, navigation }) {
           }}
         />
       </View>
-      <View style={{ flex: 6 }}>
-
-        <Text>
+      <View style={{ flex: 6, borderColor: 'white' }}>
+        {/* <Text>
           {`-${text}`}
-        </Text>
+        </Text> */}
+        <MapView
+          style={{ flex: 1, width: "100%" }}
+          initialRegion= {region}
+        />
+        {/*    */}
       </View>
 
-      <View style={[allStyles.headerM, { justifyContent: 'space-evenly' }, { flex: 1 }, ]}>
+      <View style={[allStyles.headerM, { justifyContent: 'center' }, { width: '100%' }]}>
         <ButtonR
-          style={{ aspectRatio: 2.7 }}
+          style={{ aspectRatio: 2.7, borderBottomRightRadius: 0 }}
           title='Locate User'
           onPress={() => {
             navigation.navigate('location_Picker')
           }}
         />
         <ButtonR
-          style={{ aspectRatio: 2.7 }}
-          title='PicK on Map'
+          style={{
+            aspectRatio: 2.7,
+            borderBottomLeftRadius: 0,
+            marginLeft: 3,
+          }}
+          title='Pick on Map'
           onPress={() => {
-            navigation.navigate('Pick_OnMap')
+            navigation.navigate('Location_Map')
           }}
         />
       </View>
-
-
     </View>
   )
 }

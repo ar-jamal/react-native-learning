@@ -10,7 +10,7 @@ export default function ImagePickerHandler({ }) {
     const image = await launchCameraAsync({
       allowsEditing: true,
       aspect: [16,9],
-      quality: 0.5,
+      quality: 0.5,  
     });
     // console.log(image)
     setPickedImage(image.uri);

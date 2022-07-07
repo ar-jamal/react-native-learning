@@ -42,6 +42,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 12,
+    
+  
   },
   butText: {
     color: 'white',

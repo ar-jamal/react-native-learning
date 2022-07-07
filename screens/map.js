@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons/Ionicons';
+import setOption from '@react-navigation/native'
+import { Icon } from  '../components/Icon'
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -10,43 +14,66 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import allStyles from './utils/allStyles';
-import ButtonR from './utils/cusComponents/roundButton';
+import MapView, { Marker } from 'react-native-maps';
+import allStyles from '../components/allStyles';
+import ButtonR from '../components/ButtonR';
 
 
-const App = ({width}) => {
-  const [text, setText] = useState('')
-return (
-  <View
-  style= {allStyles.body}
-  >
-    <View style= {allStyles.headerM}>
-    <TextInput
-      style= {allStyles.input}
-      placeholder= 'what would you like to focus on?'
-      placeholderTextColor='blue'
-      
-      multiline= {true}
-      // value= {text}
-      onChangeText= {value => {setText(value)} }
-    />
-    {/* <TouchableOpacity
-    style= {allStyles.button}
-    > 
-    <Text style= {allStyles.butText}>+</Text>
-    </TouchableOpacity> */}
-    <ButtonR
-      title= '+'
-    />
-    </View>
-    <View>
-      <Text style= {allStyles.listText}> Things we have focused on:</Text>
-      <Text>
-        {`-${text}`}
-      </Text>
-    </View>
-    
-  </View>
-)}
+function Map({ navigation }) {
+  const [selectedLocation, setSelectedLocation] = useState();
+  function setLocationHandler(event) {
+    const lat = event.nativeEvent.coordinate.latitude
+    const lng = event.nativeEvent.coordinate.longitude
+    setSelectedLocation({ lat: lat, lng: lng })
+  }
 
-export default App;
+  const savePickedLocationHandler = useCallback(() => {
+    if (!selectedLocation) {
+      Alert.alert('No Location Picked',
+        'Kindly Picked a Location by tapping on map');
+      return;
+    }
+    navigation.navigate('Main_Page', {
+      pickedLat: selectedLocation.lat,
+      pickedLng: selectedLocation.lng,
+    })
+  }, [navigation, selectedLocation]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => ( 
+        <Icon name='pushpino'
+            type='antDesign'
+            size={24}
+            color='blue'
+            onPress={savePickedLocationHandler}       
+          />
+      )
+    })
+  }, [navigation, savePickedLocationHandler])
+
+  const region = {
+    latitude: 24.871917,
+    longitude: 66.987991,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
+  }
+   return (<MapView
+      initialRegion={region}
+      style={{ flex: 1 }}
+      onPress={setLocationHandler}
+    >
+      {selectedLocation && (<Marker
+        title='picked Location'
+        coordinate={{
+          latitude: selectedLocation.lat,
+          longitude: selectedLocation.lng
+        }}
+      />
+      )}
+    </MapView>
+  
+)};
+
+
+export default Map;

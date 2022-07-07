@@ -1,3 +1,129 @@
+import {createIconSetFromIcoMoon} from 'react-native-vector-icons'
+;
+// import icoMoonConfig from '../../assets/shareIcon/selection.json'</TouchableOpacity>)
+;
+// const CustomIcon = createIconSetFromIcoMoon(
+//   icoMoonConfig,
+//   'icomoon',
+//   'icomoon.ttf',
+// )</TouchableOpacity>)
+;
+export const Icon = ({type,onPress, ...props}) => {
+  return(
+
+    switch (type) {
+      case 'antDesign':
+        return   (<TouchableOpacity {...props}>
+<AntDesign {...props} /> 
+                 </TouchableOpacity>)
+;
+      case 'entypo':
+        return   (<TouchableOpacity {...props}>
+<Entypo {...props} /></TouchableOpacity>)
+;
+      case 'evilIcons':
+        return   (<TouchableOpacity {...props}>
+<EvilIcons {...props} /></TouchableOpacity>)
+;
+      case 'feather':
+        return   (<TouchableOpacity {...props}>
+<Feather {...props} /></TouchableOpacity>)
+;
+      case 'ionIcons':
+        return   (<TouchableOpacity {...props}>
+<Ionicons {...props} /></TouchableOpacity>)
+;
+      case 'materialIcons':
+        return   (<TouchableOpacity {...props}>
+<MaterialIcons {...props} /></TouchableOpacity>)
+;
+      case 'fontAwesome5':
+        return   (<TouchableOpacity {...props}>
+<FontAwesome5 {...props} /></TouchableOpacity>)
+;
+      case 'fontAwesome':
+        return   (<TouchableOpacity {...props}>
+<FontAwesome {...props} /></TouchableOpacity>)
+;
+      case 'materialCommunityIcons':
+        return   (<TouchableOpacity {...props}>
+<MaterialCommunityIcons {...props} /></TouchableOpacity>)
+;
+
+    // (<TouchableOpacity {...props}>
+    // case 'custom':f
+    //   return   (<TouchableOpacity {...props}>
+// <CustomIcon {...props} /></TouchableOpacity>)
+;
+  }
+  return   (<TouchableOpacity {...props}>
+<FontAwesome {...props} />
+  
+</TouchableOpacity>)
+}
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const ButtonR = ({title, onPress, ...props}) => {
     // const navigation = useNavigation()

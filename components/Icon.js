@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native'
 import {
   AntDesign,
   Entypo,
@@ -9,36 +10,58 @@ import {
   Ionicons,
   MaterialIcons,
   MaterialCommunityIcons
-} from './IconList';
-import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
+} from '@expo/vector-icons';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 // import icoMoonConfig from '../../assets/shareIcon/selection.json';
 // const CustomIcon = createIconSetFromIcoMoon(
 //   icoMoonConfig,
 //   'icomoon',
 //   'icomoon.ttf',
 // );
-export const Icon = ({type, ...props}) => {
+export const Icon = ({ type, onPress, ...props }) => {
+  // return <AntDesign {...props} />
+  // const [I, setI] = useState('');
+  let Component;
   switch (type) {
-    case 'antdesign':
-      return <AntDesign {...props} />;
+    // case I :
+    //   Component = setI (json.parse(type))
+    //   break;
+    case 'antDesign':
+      Component = AntDesign
+      break;
     case 'entypo':
-      return <Entypo {...props} />;
+      Component = Entypo
+      break;
     case 'evilIcons':
-      return <EvilIcons {...props} />;
+      Component = EvilIcons
+      break;
     case 'feather':
-      return <Feather {...props} />;
+      Component = Feather
+      break;
     case 'ionIcons':
-      return <Ionicons {...props} />;
+      Component = Ionicons
+      break;
     case 'materialIcons':
-      return <MaterialIcons {...props} />;
-    case 'fontAwesome5':
-      return <FontAwesome5 {...props} />;
+      Component = MaterialIcons
+      break;
+    // case 'fontAwesome5':
+    //   Component = FontAwesome5
+    //   break; 
     case 'fontAwesome':
-      return <FontAwesome {...props} />;
+      Component = FontAwesome
+      break;
     case 'materialCommunityIcons':
-      return <MaterialCommunityIcons {...props} />;
-    // case 'custom':f
-    //   return <CustomIcon {...props} />;
+      Component = MaterialCommunityIcons
+      break;
+    default:
+      Component = FontAwesome;
+      break;
   }
-  return <FontAwesome {...props} />;
+  if (onPress) {
+    return <TouchableOpacity onPress={onPress}>
+      <Component {...props} />
+    </TouchableOpacity>
+  }
+  return <Component {...props} />
+
 };

@@ -1,6 +1,7 @@
 import { Camera, CameraType } from 'expo-camera';
 import React , { useState , useEffect} from 'react';
 import { View, TouchableOpacity, Text,  } from 'react-native-web';
+
 export default function CameraPage() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);

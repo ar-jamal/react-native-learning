@@ -18,7 +18,7 @@ import ButtonR from './components/ButtonR';
 import { launchCameraAsync } from 'expo-image-picker';
 import ImagePickerHandler from './screens/Camera02';
 import Map from './screens/map';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 
 
@@ -32,8 +32,10 @@ function MainPage({ width, navigation, route }) {
     lat: 0,
     lng: 0
   })
-
   const { pickedLat, pickedLng } = route.params || {};
+  const [pickedImage, setPickedImage] = useState('')
+
+
 
   useEffect(() => {
     setLatLng({
@@ -41,43 +43,17 @@ function MainPage({ width, navigation, route }) {
       lng: pickedLng
     })
   }, [pickedLat, pickedLng])
-  // const lat = pickedLat;
-  //   const lng = pickedLng
-  // }
 
-  // };
-
-  const region = {
-    latitude: latLng.lat,
-    longitude: latLng.lng,
-    latitudeDelta: 0.072,
-    longitudeDelta: 0.092
-  }
-
-
-  const ImagePickerHandler = ({ }) => {
-    const [pickedImage, setPickedImage] = useState("")
-    const loadCamera = useCallback(async () => {
-      const image = await launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
-      });
-      // console.log(image)
-      setPickedImage(image.uri);
-    }, [])
-
-    useEffect(() => {
-      loadCamera()
-
-    }, [])
-  }
+  useEffect(() => {
+    const pickedImage = route.params?.pickedImage ?? '';
+    setPickedImage(pickedImage)
+  }, [pickedImage, route])
 
   return (
     <View
       style={allStyles.body}
     >
-      <View style={[allStyles.headerM, { flex: 1 }]}>
+      <View style={[allStyles.headerM, { flex: .5 }]}>
         <TextInput
           style={allStyles.input}
           placeholder='what would you like to focus on?'
@@ -109,20 +85,44 @@ function MainPage({ width, navigation, route }) {
           onPress={() => {
             navigation.navigate('Camera_Page')
           }}
-        />
+        >
+        {!!pickedImage && <Image
+          style={{ width: 50, aspectRatio: 1 }}
+          source={{ uri: pickedImage }} />}
+        </ButtonR>
       </View>
-      <View style={{ flex: 6, borderColor: 'white' }}>
+      <View style={{
+        flex: 6, borderColor: 'white', borderWidth: 1, width: '92%',
+        alignItems: 'center', justifyContent: 'center'
+      }}>
         {/* <Text>
           {`-${text}`}
         </Text> */}
-        <MapView
-          style={{ flex: 1, width: "100%" }}
-          initialRegion= {region}
-        />
-        {/*    */}
+        {(!!latLng.lat && <MapView
+          style={{ flex: 1, width: "100%", borderWidth: 2 }}
+          initialRegion={{
+            latitude: latLng.lat,
+            longitude: latLng.lng,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+        >
+          <Marker
+            title='jamal'
+            coordinate={{
+              latitude: latLng.lat,
+              longitude: latLng.lng,
+            }}
+          />
+        </MapView>)
+          || <Text style={{ color: 'white', fontSize: 16 }}
+          > Kindly pick your Location
+          </Text>}
       </View>
 
-      <View style={[allStyles.headerM, { justifyContent: 'center' }, { width: '100%' }]}>
+      <View style={[allStyles.headerM, { marginBottom: 10 }, { marginTop: 20 },
+      { justifyContent: 'center' }, { width: '100%' }
+      ]}>
         <ButtonR
           style={{ aspectRatio: 2.7, borderBottomRightRadius: 0 }}
           title='Locate User'

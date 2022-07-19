@@ -7,7 +7,7 @@ export default StyleSheet.create({
     backgroundColor: '#1e005a',
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingTop: 32,
     paddingHorizontal: 12,   
   },
@@ -41,6 +41,7 @@ export default StyleSheet.create({
     borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     // marginHorizontal: 12,
   },
   butText: {
@@ -48,6 +49,12 @@ export default StyleSheet.create({
     fontSize: 18,
     // padding: 7, 
   },
+  button02: {
+    height: 200,
+    aspectRatio: 2, 
+    backgroundColor: '#1e005a', 
+    margin: 24
+  }, 
   listText: {
     color: 'white',
     fontSize: 16,

@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 export default function MyStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Main page'>
+      <Stack.Navigator initialRouteName='Main_page'>
         <Stack.Screen name="Main_Page" component={MainPage} />
         <Stack.Screen name="Camera_Page" options={{
           headerTitle: "Camera Page"

@@ -63,6 +63,7 @@ function Map({ navigation }) {
       style={{ flex: 1 }}
       onPress={setLocationHandler}
     >
+      
       {selectedLocation && (<Marker
         title='picked Location'
         coordinate={{

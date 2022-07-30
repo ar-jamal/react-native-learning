@@ -1,7 +1,7 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons/Ionicons';
 import setOption from '@react-navigation/native'
-import { Icon } from  '../components/Icon'
+import { Icon } from  './Icon'
 import {
   Alert,
   SafeAreaView,
@@ -15,8 +15,8 @@ import {
   View,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import allStyles from '../components/allStyles';
-import ButtonR from '../components/ButtonR';
+import allStyles from './allStyles';
+import ButtonR from './ButtonR';
 
 
 function Map({ navigation }) {
@@ -61,7 +61,7 @@ function Map({ navigation }) {
    return (<MapView
       initialRegion={region}
       style={{ flex: 1 }}
-      onPress={setLocationHandler}
+      onPress=  {setLocationHandler}
     >
       
       {selectedLocation && (<Marker

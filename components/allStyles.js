@@ -6,10 +6,11 @@ export default StyleSheet.create({
   body: {
     backgroundColor: '#1e005a',
     flex: 1,
+    alignItems: 'baseline',
+    width: '100%',
     justifyContent: 'flex-start',
-    alignItems: 'center',
     paddingTop: 32,
-    paddingHorizontal: 12,   
+    paddingHorizontal: 16,   
   },
   headerM: {
     flexDirection: 'row',
@@ -20,17 +21,13 @@ export default StyleSheet.create({
   },
   input: {
     backgroundColor: 'yellow',
-    width: '75%',
-    height: 50,
-    fontSize: 12,
+    width: '100%',
+    aspectRatio: 6,
+    fontSize: 11,
     borderWidth: 2,
     borderBottomColor: '#D8BFFF', 
     alignItems: 'center', 
-    padding: 12,
-    // justifyContent: 'flex-start',
-    // alignContent: 'flex-start',
-    marginLeft: 8,
-
+    marginVertical: 6,   
   },
   button: {
     backgroundColor: '#1e005a',
@@ -56,10 +53,40 @@ export default StyleSheet.create({
     margin: 24
   }, 
   listText: {
+    // flexDirection: 'row',
+    // justifyContent: 'flex-start',
+    textAlign: 'left',
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    paddingTop: 12,
-  }
+    padding: 12,
+  },
+  placesM: {
+    backgroundColor: 'yellow',
+    width: '100%',
+    aspectRatio: 5,
+  },
+  placeItem: {
+    width: '100%',
+    aspectRatio: 7, 
+    padding: 10,
+    borderRadius: 10
+  },
+  placesAll: {
+    width: '20%',
+  },
+  imageAll: {
+    width: '100%',
+    aspectRatio: 1,
+  },
+  textAll: {
+    fontSize: 10,
+  },
+  placesListM: {
+    width: '100%',
+    aspectRatio: .16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 

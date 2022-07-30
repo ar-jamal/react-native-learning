@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Button, Text, Image } from 'react-native';
+import { View, Button, Text, Image, Alert } from 'react-native';
 // import ButtonCam from '../components/ButtonCam';
-import { launchCameraAsync } from 'expo-image-picker';
+import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
 import allStyles from '../components/allStyles';
 import ButtonR from '../components/ButtonR';
 
@@ -9,10 +9,32 @@ export default function ImagePickerHandler({ navigation }) {
   const parameterHandler = () => {
     navigation.navigate('Main_Page', { pickedImage })
   }
+  const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
+
+  async function verifyPermissions() {
+    if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await requestPermission()
+
+      return permissionResponse.granted;
+    }
+
+    if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
+      Alert.alert(
+        'Permission denied!',
+        'Kindly allow access to the camera to use this App'
+      )
+      return false;
+    }
+    return true;
+  }
 
   const [pickedImage, setPickedImage] = useState("")
 
   const loadCamera = useCallback(async () => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
     const image = await launchCameraAsync({
       allowsEditing: true,
       aspect: [16, 9],
@@ -22,14 +44,16 @@ export default function ImagePickerHandler({ navigation }) {
     setPickedImage(image.uri);
 
   }, [])
+
   useEffect(() => {
     loadCamera()
-
   }, [])
 
   return (<View
-    style={{ width: '100%', padding: 20,
-      alignItems: "center" }}
+    style={{
+      width: '100%', padding: 20,
+      alignItems: "center"
+    }}
   >
     <View style={{
       width: '100%',

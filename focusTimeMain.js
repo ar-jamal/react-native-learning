@@ -13,16 +13,16 @@ import {
   Image,
 
 } from 'react-native';
-import allStyles from './components/allStyles';
-import ButtonR from './components/ButtonR';
+import allStyles from '../components/allStyles';
+import ButtonR from '../components/ButtonR';
 import { launchCameraAsync } from 'expo-image-picker';
-import ImagePickerHandler from './screens/Camera02';
-import Map from './screens/map';
+import ImagePickerHandler from './Camera02';
+import Map from './map';
 import MapView, { Marker } from 'react-native-maps';
 import { ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 
 
-function MainPage({ width, navigation, route }) {
+function PlaceForm({ width, navigation, route, onAddLocation }) {
 
   // const mapPickedLocation = route.params && {
   // lat: route.params.pickedLat, 
@@ -34,8 +34,6 @@ function MainPage({ width, navigation, route }) {
   })
   const { pickedLat, pickedLng } = route.params || {};
   const [pickedImage, setPickedImage] = useState('')
-
-
 
   useEffect(() => {
     setLatLng({
@@ -95,7 +93,7 @@ function MainPage({ width, navigation, route }) {
         flex: 6, borderColor: 'white', borderWidth: 1, width: '92%',
         alignItems: 'center', justifyContent: 'center'
       }}>
-        {/* <Text>
+        {/* <Text> 
           {`-${text}`}
         </Text> */}
         {(!!latLng.lat && <MapView
@@ -125,10 +123,8 @@ function MainPage({ width, navigation, route }) {
       ]}>
         <ButtonR
           style={{ aspectRatio: 2.7, borderBottomRightRadius: 0 }}
-          title='Locate User'
-          onPress={() => {
-            navigation.navigate('location_Picker')
-          }}
+          title='Add Location'
+          onPress={onAddLocation}
         />
         <ButtonR
           style={{
@@ -146,4 +142,4 @@ function MainPage({ width, navigation, route }) {
   )
 }
 
-export default MainPage;
+export default PlaceForm;

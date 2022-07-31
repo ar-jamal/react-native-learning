@@ -13,9 +13,9 @@ export default function AllPlaces({ navigation, title, imageUri }) {
       setLoadedPlaces(places)
     }
     if (isFocused) {
-      loadPlaces();
+      loadPlaces()
     }
-  },[isFocused])
+  },[isFocused]);
   return <PlacesList places= {loadedPlaces}/>
     
   

@@ -5,7 +5,7 @@ import { View, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import allStyles from './allStyles';
 // import Place from './Class'
 
-export default function PlaceItem({ onSelect, place }) {
+export default function PlaceItem({ onSelect, place, lat }) {
   
   return (
     <TouchableOpacity

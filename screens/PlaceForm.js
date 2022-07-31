@@ -32,7 +32,6 @@ function PlaceForm({ navigation, route }) {
     const pickedImage = route.params?.pickedImage ?? '';
     setPickedImage(pickedImage)
   }, [pickedImage, route])
-
   return (
     <View
       style={allStyles.body}

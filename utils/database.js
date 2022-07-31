@@ -88,9 +88,19 @@ export function fetchPlaceDetials(id) {
                 'SELECT * FROM places WHERE id = ?', 
                 [id],
                 (_, result) => {
-                    const place= new Place()
-                    console.log(result)
-                    resolve();
+                    const place= []
+                    for (const dp of result.rows._array) {                 
+                        place.push(
+                            new Place(
+                                dp.title, dp.imageUri, {
+                                lat: dp.location.lat,
+                                lat: dp.location.lng
+                                }
+                            )
+                        )
+                    }
+                    // console.log(result)
+                    resolve(place);
                 },
                 (_, error) => {
                     reject(error)

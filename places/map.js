@@ -19,7 +19,7 @@ import allStyles from './allStyles';
 import ButtonR from './ButtonR';
 
 
-function Map({ navigation }) {
+function Map({ navigation, onPress }) {
   const [selectedLocation, setSelectedLocation] = useState();
   function setLocationHandler(event) {
     const lat = event.nativeEvent.coordinate.latitude
@@ -33,7 +33,7 @@ function Map({ navigation }) {
         'Kindly Picked a Location by tapping on map');
       return;
     }
-    navigation.navigate('Main_Page', {
+    navigation.navigate('Place Form', {
       pickedLat: selectedLocation.lat,
       pickedLng: selectedLocation.lng,
     })
@@ -53,22 +53,21 @@ function Map({ navigation }) {
   }, [navigation, savePickedLocationHandler])
 
   const region = {
-    latitude: 24.871917,
-    longitude: 66.987991,
+    latitude: place.location.lat || 24.871917,
+    longitude: place.location.lng || 66.987991,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   }
-   return (<MapView
+    return (<MapView
       initialRegion={region}
       style={{ flex: 1 }}
-      onPress=  {setLocationHandler}
-    >
-      
+      onPress= {onPress} || {setLocationHandler}
+    >     
       {selectedLocation && (<Marker
         title='picked Location'
         coordinate={{
-          latitude: selectedLocation.lat,
-          longitude: selectedLocation.lng
+          latitude: place.location.lat || selectedLocation.lat,
+          longitude: place.location.lng || selectedLocation.lng
         }}
       />
       )}

@@ -6,8 +6,8 @@ import {
   Image,
 
 } from 'react-native';
-import allStyles from './allStyles';
-import ButtonR from './ButtonR';
+import allStyles from '../components/allStyles';
+import ButtonR from '../components/ButtonR';
 import MapView, { Marker } from 'react-native-maps';
 
 
@@ -32,6 +32,7 @@ function PlaceForm({ navigation, route }) {
     const pickedImage = route.params?.pickedImage ?? '';
     setPickedImage(pickedImage)
   }, [pickedImage, route])
+
   return (
     <View
       style={allStyles.body}
@@ -53,7 +54,7 @@ function PlaceForm({ navigation, route }) {
         }}
       >
         {!!pickedImage && <Image
-          style={{ width: 50, aspectRatio: 1 }}
+          style={{ width: "100%", aspectRatio: 1 }}
           source={{ uri: pickedImage }} />}
       </ButtonR>
       <View style={{

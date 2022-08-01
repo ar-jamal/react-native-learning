@@ -2,16 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Button, Text, Image, Alert } from 'react-native';
 // import ButtonCam from '../components/ButtonCam';
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
-import allStyles from '../components/allStyles';
 import ButtonR from '../components/ButtonR';
 
 export default function ImagePickerHandler({ navigation }) {
   const parameterHandler = () => {
-    navigation.navigate('Main_Page', { pickedImage })
+    navigation.navigate('Place Form', { pickedImage })
   }
   const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
 
-  async function verifyPermissions() {
+  const verifyPermissions = useCallback(async () => {
     if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission()
 
@@ -23,14 +22,18 @@ export default function ImagePickerHandler({ navigation }) {
         'Permission denied!',
         'Kindly allow access to the camera to use this App'
       )
-      return false;
+      const permissionResponse = await requestPermission()
+
+      return permissionResponse.granted;
+      // return false;
     }
     return true;
-  }
-
+  }, [cameraPermissionInformation])
   const [pickedImage, setPickedImage] = useState("")
 
   const loadCamera = useCallback(async () => {
+    console.log(cameraPermissionInformation)
+
     const hasPermission = await verifyPermissions();
     if (!hasPermission) {
       return;
@@ -43,11 +46,12 @@ export default function ImagePickerHandler({ navigation }) {
     // console.log(image.uri)
     setPickedImage(image.uri);
 
-  }, [])
+  }, [cameraPermissionInformation])
 
   useEffect(() => {
-    loadCamera()
-  }, [])
+    if (cameraPermissionInformation)
+      loadCamera()
+  }, [cameraPermissionInformation])
 
   return (<View
     style={{

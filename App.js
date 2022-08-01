@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Camera from "./components/Camera";
-import MainPage from "./components/PlaceForm";
-// import CameraPage from './screens/Camera';
-import Page01 from "./screens/setTask";
-import ImagePickerHandler from "./screens/Camera02";
-import Map from "./components/map";
+import ImagePickerHandler from "./places/Camera02";
+import Map from "./places/map";
 import AllPlaces from "./screens/allPlaces";
 import { init } from "./utils/database";
-import AppLoading from "expo-app-loading";
-import PlaceForm from "./components/PlaceForm";
+// import AppLoading from "expo-app-loading";
+import {ActivityIndicator} from 'react-native';
+import PlaceForm from "./screens/PlaceForm";
 import ButtonR from "./components/ButtonR";
 import PlaceDetails from "./screens/PlaceDetails";
 
@@ -18,19 +16,19 @@ const Stack = createNativeStackNavigator();
 
 export default function MyStack() {
   const [dbInitialized, setDbinitialized] = useState(false);
-  // useEffect(() => {
-  //   init()
-  //     .then(() => {
-  //       setDbinitialized(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    init()
+      .then(() => {
+        setDbinitialized(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  // if(!dbInitialized) {
-  //   return <AppLoading />;
-  // }
+  if(!dbInitialized) {
+    return <ActivityIndicator />;
+  }
   return (
     <>
       <NavigationContainer>
@@ -58,9 +56,9 @@ export default function MyStack() {
               headerRight: () => {
                 const navigation = useNavigation();
                 const onPressHandler = () => {
-                  navigation.navigate("Add Place");
+                  navigation.navigate("Place Form");
                 };
-                <ButtonR title="+" onPress={onPressHandler} />;
+                return <ButtonR title="+" onPress={onPressHandler} />;
               },
             }}
           />

@@ -5,10 +5,8 @@ import {
   View,
   Image,
 } from 'react-native';
-import allStyles from './allStyles';
-import ButtonR from './ButtonR';
-import MapView, { Marker } from 'react-native-maps';
-import { Place } from '../components/Class';
+import allStyles from '../components/allStyles';
+import ButtonR from '../components/ButtonR';
 import { fetchPlaceDetials } from '../utils/database';
 
 
@@ -16,6 +14,7 @@ function PlaceDetails ({ navigation, route }) {
  
   const [fetchedPlace, setFetchedPlace] = useState()
   const {selectedPlaceId} = route.params.placeId
+  
   useEffect(() => {
     async function loadPlaceData() {
       const place = await fetchPlaceDetials(selectedPlaceId);
@@ -35,12 +34,12 @@ function PlaceDetails ({ navigation, route }) {
         style={{ width: "80%", aspectRatio: .4 }}
         source={{ uri: fetchedPlace.imageUri }} 
       />
-      <Text style={allStyles.listText}> `${fetchedPlace.location.lat},  ${fetchedPlace.location.lng}` </Text>
+      <Text style={allStyles.listText}> `${fetchedPlace.location.lat}, \b ${fetchedPlace.location.lng}` </Text>
       <ButtonR
         style={{ borderRadius: 0, height: 120 }}
         title='c'
         onPress={() => {
-          navigation.navigate('Map')
+          navigation.navigate('Map', {fetchedPlaceLat: fetchedPlace.location.lat, fetchedPlaceLng: fetchedPlace.location.lng})
         }}
       />
     </View>

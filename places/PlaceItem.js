@@ -1,8 +1,7 @@
-import { Camera, CameraType } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
-import { View, TouchableOpacity, Text, FlatList, Image } from 'react-native';
-import allStyles from './allStyles';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
+import allStyles from '../components/allStyles';
 // import Place from './Class'
 
 export default function PlaceItem({ onSelect, place, lat }) {

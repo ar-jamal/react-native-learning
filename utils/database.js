@@ -8,10 +8,10 @@ export function init() {
         database.transaction((tx) => {
             tx.executeSql(
                 `CREATE TABLE IF NOT EXISTS Places(
-                id INTEGER NOT NULL
-                title TEXT NOT NULL
-                imageUri TEXT NOT NULL
-                lat REAL NOT NULL
+                id INTEGER NOT NULL,
+                title TEXT NOT NULL,
+                imageUri TEXT NOT NULL,
+                lat REAL NOT NULL,
                 lng REAL NOT NULL
                 )`,
                 [],
@@ -31,7 +31,7 @@ export function insertPlace(Place) {
     const promise = new Promise((resolve, reject) => {
         database.transaction((tx) => {
             tx.executeSql(
-                `INSERT DATA into places (title, imageUri, lat, lng) VALUES (?, ?, ?, ?)`,
+                `INSERT DATA into Places (title, imageUri, lat, lng) VALUES (?, ?, ?, ?)`,
                 [
                     Place.title,
                     Place.imageUri,
@@ -55,7 +55,7 @@ export function fetchPlaces() {
     const promise = new Promise((resolve, reject) => {
         database.transaction((tx) => {
             tx.executeSql(
-                `SELECT * FROM Places(title, imageUri, lat, lng) VALUE (?,?,?,?)`, 
+                `SELECT * FROM Places`, 
                 [],
                 (_, result) => {
                     const places = []
@@ -85,7 +85,7 @@ export function fetchPlaceDetials(id) {
     const promise = new Promise((resolve, reject) => {
         database.transaction((tx) => {
             tx.executeSql(
-                'SELECT * FROM places WHERE id = ?', 
+                'SELECT * FROM Places WHERE id = ?', 
                 [id],
                 (_, result) => {
                     const place= []

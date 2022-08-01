@@ -1,9 +1,6 @@
-import { Camera, CameraType } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
-import MapView from 'react-native-maps';
 import { View, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import allStyles from '../components/allStyles';
-import Place from './Class'
 import PlaceItem from './PlaceItem';
 import { useNavigation } from '@react-navigation/native';
 

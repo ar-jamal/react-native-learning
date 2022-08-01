@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, Text, TouchableOpacity } from 'react-native';
 import allStyles from './allStyles';
 
